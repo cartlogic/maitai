@@ -51,6 +51,18 @@ Useful for working around other misbehaving components which are leaking data in
     app = SecureCookiesMiddleware(app)
 
 
+### ``RenameCookieMiddleware`` ###
+
+Look for a cookie by a certain name on the client, if it is present, rename it to a new name and reset metadata to desired values.
+
+    from maitai.renamecookie import RenameCookieMiddleware
+
+    app = App()
+    app = RenameCookieMiddleware('old_cookie', 'new_cookie', secure=True)
+
+Additional keyword arguments are available for setting all cookie metadata attributes supported by WebOb's ``response.set_cookie()`` call, including ``expires``, ``max_age``, ``secure``, ``domain``, ``path``, ``httponly``, and ``comment``.
+
+
 ### ``StatusCodeRedirect`` ###
 
 Internally redirect a request based on status code. If a response has an HTTP status which matches the list configured in the middleware, the request is re-run with the URL path set to the configured path.
@@ -65,12 +77,12 @@ Inspired by the middleware that was included in Pylons, and shares the same sema
 
 Request re-issuing is non-recursive: the output of the second request will be used no matter what it is.
 
+
 To Do
 =====
 
 Additional tools that may be coming soon:
 
-- Middleware to rename a cookie.
 - Middleware to prune all cookies that don't match a whitelist, or all cookies
   that do match a blacklist.
 - Logging utilities.
