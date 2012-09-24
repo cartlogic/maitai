@@ -3,8 +3,10 @@
 
 Scott Torborg - [Cart Logic](http://www.cartlogic.com)
 
-Mai Tai is a collection of useful WSGI middlewares for common web
-configuration needs.
+Mai Tai is a collection of useful WSGI middlewares. The goal is to stand
+alongside the excellent [Paste](http://pythonpaste.org) and
+[WebOb](http://webob.org) libraries and provide tools that are handy for
+practical WSGI application administration.
 
 It is also:
 
