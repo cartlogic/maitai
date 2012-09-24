@@ -7,6 +7,7 @@ from webob.dec import wsgify
 
 from maitai.statuscode import StatusCodeRedirect
 
+
 @wsgify
 def bare_app(req):
     resp = Response('hello %s' % req.path_info)
