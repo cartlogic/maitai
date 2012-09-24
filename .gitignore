@@ -11,6 +11,9 @@
 # Compiled python modules.
 *.pyc
 
+# Setuptools distribution folder.
+/dist/
+
 # Egg metadata, regenerated from source files by setuptools.
 /maitai.egg-info
 
