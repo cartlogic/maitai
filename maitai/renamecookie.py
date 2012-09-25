@@ -1,5 +1,9 @@
+import logging
+
 from webob import Request
 from webob.exc import HTTPTemporaryRedirect
+
+log = logging.getLogger(__name__)
 
 
 class RenameCookieMiddleware(object):
@@ -18,10 +22,12 @@ class RenameCookieMiddleware(object):
         req = Request(environ)
 
         if self.from_key in req.cookies:
+            val = req.cookies[self.from_key]
+            log.info("Renaming %s=%s to %s on client IP %s",
+                     self.from_key, val, self.to_key, req.remote_addr)
             resp = HTTPTemporaryRedirect(location=req.url)
             resp.delete_cookie(self.from_key)
-            resp.set_cookie(self.to_key, req.cookies[self.from_key],
-                            **self.cookie_kwargs)
+            resp.set_cookie(self.to_key, val, **self.cookie_kwargs)
         else:
             resp = req.get_response(self.app)
 
