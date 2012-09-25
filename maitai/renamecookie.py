@@ -21,8 +21,8 @@ class RenameCookieMiddleware(object):
     def __call__(self, environ, start_response):
         req = Request(environ)
 
-        if self.from_key in req.cookies:
-            val = req.cookies[self.from_key]
+        val = req.cookies.get(self.from_key)
+        if val:
             log.info("Renaming %s=%s to %s on client IP %s",
                      self.from_key, val, self.to_key, req.remote_addr)
             resp = HTTPTemporaryRedirect(location=req.url)
