@@ -2,9 +2,10 @@ from unittest import TestCase
 
 from webob import Response
 from webob.dec import wsgify
-from webtest import TestApp
 
 from maitai.renamecookie import RenameCookieMiddleware
+
+from .utils import FixedTestApp
 
 
 @wsgify
@@ -19,23 +20,6 @@ def bare_app(req):
         resp.set_cookie(key, val)
 
     return resp
-
-
-class FixedTestApp(TestApp):
-    """
-    A patched version of webtest.TestApp which corrects a bug in which TestApp
-    doesn't actually flush cookies which are deleted from the server (by a
-    blank Set-Cookie call).
-    """
-    def prune_empty_cookies(self):
-        for cookie, value in self.cookies.items():
-            if value == '':
-                del self.cookies[cookie]
-
-    def do_request(self, req, status, expect_errors):
-        ret = TestApp.do_request(self, req, status, expect_errors)
-        self.prune_empty_cookies()
-        return ret
 
 
 class TestRenameCookieMiddleware(TestCase):

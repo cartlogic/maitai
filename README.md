@@ -73,6 +73,26 @@ attributes supported by WebOb's ``response.set_cookie()`` call, including
 ``comment``.
 
 
+### ``PruneCookiesMiddleware`` ###
+
+Prune all cookies from the client that either match a blacklist, or don't match
+a whitelist.
+
+    from maitai.prunecookies import PruneCookieMiddleware
+
+    app = App()
+    app = PruneCookiesMiddleware(app, whitelist=('session_id',
+                                                 '__utma', '__utmb',
+                                                 '__utmc', '__utmz'))
+
+**Note:** As indicated above, regardless of your server-side code, don't forget
+that you may have 3rd-party javascript like Google Analytics which uses
+specific cookie names. Don't throw away your data!
+
+This works by issuing an immediate 307 redirect in response to any requests
+that have a cookie that is "to be discarded".
+
+
 ### ``StatusCodeRedirect`` ###
 
 Internally redirect a request based on status code. If a response has an HTTP
@@ -97,8 +117,6 @@ To Do
 
 Additional tools that may be coming soon:
 
-- Middleware to prune all cookies that don't match a whitelist, or all cookies
-  that do match a blacklist.
 - Logging utilities.
 - Request latency timing by request type.
 
