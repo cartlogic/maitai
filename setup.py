@@ -2,7 +2,7 @@ from setuptools import setup
 
 
 setup(name="maitai",
-      version='0.1',
+      version='0.2',
       description='Handy WSGI Middleware Utilities',
       long_description='',
       classifiers=[
