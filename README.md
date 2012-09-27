@@ -62,7 +62,10 @@ to a new name and reset metadata to desired values.
     from maitai.renamecookie import RenameCookieMiddleware
 
     app = App()
-    app = RenameCookieMiddleware('old_cookie', 'new_cookie', secure=True)
+    app = RenameCookieMiddleware(app, 'old_cookie', 'new_cookie', secure=True)
+
+This works by issuing an immediate 307 redirect in response to any requests
+that have a cookie which matches 'old_cookie'.
 
 Additional keyword arguments are available for setting all cookie metadata
 attributes supported by WebOb's ``response.set_cookie()`` call, including
