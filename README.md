@@ -112,6 +112,27 @@ Request re-issuing is non-recursive: the output of the second request will be
 used no matter what it is.
 
 
+### ``ForensicMiddleware`` ###
+
+Forensically log web requests. That is, log enough information about a web
+request to make it possible to precisely reconstruct exactly what happened in
+the request.
+
+Logs request data as a JSON object per-line to an append-only file.
+
+    from maitai.forensic import ForensicMiddleware
+
+    app = SuperAwesomeApp()
+    app = ForensicMiddleware(app, '/var/log/maitai-forensic.log')
+
+**TODO**
+
+- Log the request handling time
+- Log the WSGI environ??
+- Log the response body, and the response headers.
+- Log timestamp in ISO 8601
+
+
 To Do
 =====
 
