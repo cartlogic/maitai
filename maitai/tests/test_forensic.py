@@ -22,7 +22,8 @@ class TestForensicMiddleware(TestCase):
 
     def setUp(self):
         self.path = '/tmp/maitai-forensic-test.log'
-        os.remove(self.path)
+        if os.path.exists(self.path):
+            os.remove(self.path)
         wrapped_app = ForensicMiddleware(app, self.path)
         self.app = FixedTestApp(wrapped_app)
 
