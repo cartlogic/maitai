@@ -14,6 +14,8 @@ def bare_app(req):
         resp.set_cookie('foo', 'v', secure=True)
     if req.params.get('cookie') in ('insecure', 'both'):
         resp.set_cookie('bar', 'v', secure=False)
+    if req.params.get('cookie') == 'nonwebob':
+        resp.headers['Set-Cookie'] = 'baz=v; httponly; secure; Path=/;'
     return resp
 
 
@@ -86,3 +88,15 @@ class TestSecureCookies(TestCase):
         resp = app.get('/?cookie=both')
         self.assertNotHasCookie(resp, 'foo')
         self.assertHasCookie(resp, 'bar')
+
+    def test_nonwebob_format(self):
+        app = TestApp(wrapped_app)
+
+        resp = app.get('/')
+        self.assertNotHasCookie(resp, 'baz')
+
+        resp = app.get('/?cookie=nonwebob')
+        self.assertNotHasCookie(resp, 'baz')
+
+        resp = app.get('https://localhost?cookie=nonwebob')
+        self.assertHasCookie(resp, 'baz')

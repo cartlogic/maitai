@@ -5,11 +5,6 @@ class SecureCookiesMiddleware(object):
     """
     This middleware intercepts non-https requests and strips all Set-Cookie
     headers for cookies which are secure.
-
-    Note that this will ONLY work given the following conditions (which are
-    true in the typical beaker/pylons/webob environment:
-        * the 'secure' attribute comes at the end of the cookie
-        * each cookie gets it's own Set-Cookie header
     """
     def __init__(self, app):
         self.app = app
@@ -21,7 +16,7 @@ class SecureCookiesMiddleware(object):
             # Strip all secure cookies.
             if 'Set-Cookie' in resp.headers:
                 for header in resp.headers.getall('Set-Cookie'):
-                    if header.endswith('secure'):
+                    if header.endswith('secure') or 'secure; ' in header:
                         name = header.split('=')[0].strip()
                         resp.unset_cookie(name)
         return resp(environ, start_response)
