@@ -13,7 +13,7 @@ setup(name="maitai",
           'Topic :: Internet :: WWW/HTTP :: HTTP Servers',
       ],
       keywords='wsgi middleware cookies errors',
-      url='http://github.com/storborg/maitai',
+      url='http://github.com/cartlogic/maitai',
       author='Scott Torborg',
       author_email='scott@cartlogic.com',
       install_requires=[

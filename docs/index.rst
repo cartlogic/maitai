@@ -17,6 +17,8 @@ It is also:
 * 10 mL fresh lime juice
 * spear and lime peel garnish
 
+Get the `code at GitHub <http://github.com/cartlogic/maitai>`_.
+
 
 Installation
 ------------
@@ -175,3 +177,30 @@ API
 
 .. autoclass:: maitai.forensic.ForensicMiddleware
     :members:
+
+
+License
+=======
+
+Mai Tai is licensed under an MIT license. Please see the LICENSE file for more
+information.
+
+
+Code Standards
+==============
+
+Mai Tai has a comprehensive test suite with 100% line and branch coverage, as
+reported by the excellent ``coverage`` module. To run the tests, simply run in
+the top level of the repo::
+
+    $ nosetests
+
+There are no `PEP8 <http://www.python.org/dev/peps/pep-0008/>`_ or
+`Pyflakes <http://pypi.python.org/pypi/pyflakes>`_ warnings in the codebase. To
+verify that::
+
+    $ pip install pep8 pyflakes
+    $ pep8 .
+    $ pyflakes .
+
+Any pull requests must maintain the sanctity of these three pillars.
