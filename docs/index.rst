@@ -1,5 +1,5 @@
-Mai Tai - Handy WSGI Utilities
-==============================
+Overview
+========
 
 .. module:: maitai
 
@@ -21,7 +21,7 @@ Get the `code at GitHub <http://github.com/cartlogic/maitai>`_.
 
 
 Installation
-------------
+============
 
 The recommended installation method is pip.::
 
@@ -31,7 +31,7 @@ The recommended installation method is pip.::
 
 
 Track Git SCM version in request
---------------------------------
+================================
 
 Tag requests with the current SHA1 hash of 1 or more git repositories.::
 
@@ -47,7 +47,7 @@ Inside your app code, you can access the SHA1 like::
 -------------------------------------
 
 Prevent app stack from sending secure cookies
----------------------------------------------
+=============================================
 
 Intercept non-https requests and strip any ``Set-Cookie`` headers which set
 cookies that are secure.
@@ -63,7 +63,7 @@ in your hybrid http/https deployment.::
 -------------------------------------
 
 Rename cookies on the client
-----------------------------
+============================
 
 Look for a cookie by a certain name on the client, if it is present, rename it
 to a new name and reset metadata to desired values.::
@@ -84,7 +84,7 @@ attributes supported by WebOb's ``response.set_cookie()`` call, including
 -------------------------------------
 
 Prune cookies on the client
----------------------------
+===========================
 
 Prune all cookies from the client that either match a blacklist, or don't match
 a whitelist.::
@@ -108,7 +108,7 @@ that have a cookie that is "to be discarded".
 -------------------------------------
 
 Re-dispatch HTTP errors to a new request path
----------------------------------------------
+=============================================
 
 Internally redirect a request based on status code. If a response has an HTTP
 status which matches the list configured in the middleware, the request is
@@ -129,7 +129,7 @@ used no matter what it is.
 -------------------------------------
 
 Forensically log requests
--------------------------
+=========================
 
 Forensically log web requests. That is, log enough information about a web
 request to make it possible to precisely reconstruct exactly what happened in

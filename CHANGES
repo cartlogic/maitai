@@ -1,15 +1,15 @@
 Mai Tai Changelog
------------------
+=================
 
 
 Version 0.2
-~~~~~~~~~~~
+-----------
 
 - Cleaned up documentation.
 - Added a PruneCookiesMiddleware which removes cookies on the client.
 - Make RenameCookieMiddleware handle empty cookies correctly.
 
 Version 0.1
-~~~~~~~~~~~
+-----------
 
 - Initial release.
