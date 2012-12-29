@@ -8,7 +8,7 @@ class FixedTestApp(TestApp):
     blank Set-Cookie call).
     """
     def prune_empty_cookies(self):
-        for cookie, value in self.cookies.items():
+        for cookie, value in list(self.cookies.items()):
             if value == '':
                 del self.cookies[cookie]
 

@@ -3,7 +3,7 @@ from unittest import TestCase
 from collections import defaultdict
 from cgi import parse_qs
 
-import simplejson as json
+import json
 
 from webob import Response
 from webob.dec import wsgify

@@ -11,7 +11,7 @@ from .utils import FixedTestApp
 @wsgify
 def bare_app(req):
     s = '\n'.join(['%s: %s' % (k, v)
-                   for k, v in req.cookies.iteritems()])
+                   for k, v in req.cookies.items()])
     return Response(s)
 
 
@@ -23,7 +23,7 @@ class TestPruneCookiesMiddleware(TestCase):
         app = FixedTestApp(wrapped_app)
 
         resp = app.get('/')
-        self.assertEqual(resp.body, '')
+        self.assertEqual(resp.body, b'')
 
         app.cookies = {
             'foo': '123',
@@ -40,10 +40,12 @@ class TestPruneCookiesMiddleware(TestCase):
         resp.mustcontain('foo: 123')
         resp.mustcontain('bar: 456')
         resp.mustcontain('baz: 789')
-        self.assertNotIn('quux', resp.body)
-        self.assertNotIn('larry', resp.body)
-        self.assertNotIn('curly', resp.body)
-        self.assertNotIn('moe', resp.body)
+
+        body = resp.body.decode('utf-8')
+        self.assertNotIn('quux', body)
+        self.assertNotIn('larry', body)
+        self.assertNotIn('curly', body)
+        self.assertNotIn('moe', body)
 
     def test_blacklist(self):
         wrapped_app = PruneCookiesMiddleware(bare_app,
@@ -52,7 +54,7 @@ class TestPruneCookiesMiddleware(TestCase):
         app = FixedTestApp(wrapped_app)
 
         resp = app.get('/')
-        self.assertEqual(resp.body, '')
+        self.assertEqual(resp.body, b'')
 
         app.cookies = {
             'foo': '123',
@@ -69,7 +71,9 @@ class TestPruneCookiesMiddleware(TestCase):
         resp.mustcontain('foo: 123')
         resp.mustcontain('bar: 456')
         resp.mustcontain('baz: 789')
-        self.assertNotIn('quux', resp.body)
-        self.assertNotIn('larry', resp.body)
-        self.assertNotIn('curly', resp.body)
-        self.assertNotIn('moe', resp.body)
+
+        body = resp.body.decode('utf-8')
+        self.assertNotIn('quux', body)
+        self.assertNotIn('larry', body)
+        self.assertNotIn('curly', body)
+        self.assertNotIn('moe', body)

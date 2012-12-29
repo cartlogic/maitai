@@ -1,6 +1,7 @@
 from time import time
+import json
+
 from webob import Request
-import simplejson as json
 
 
 class ForensicMiddleware(object):
@@ -20,10 +21,10 @@ class ForensicMiddleware(object):
         resp = req.get_response(self.app)
 
         entry = dict(method=req.method,
-                     body=req.body,
+                     body=req.body.decode('utf-8'),
                      url=req.url,
                      time=time(),
-                     headers=req.headers.items())
+                     headers=list(req.headers.items()))
         line = json.dumps(entry)
         assert '\n' not in line
         self.f.write(line)

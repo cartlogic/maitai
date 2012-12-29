@@ -21,7 +21,7 @@ for path in os.environ['PATH'].split(os.pathsep):
 @wsgify
 def bare_app(req):
     repos = ['%s: %s' % (key, val)
-             for key, val in req.environ.iteritems()
+             for key, val in req.environ.items()
              if key.startswith('git-sha1.')]
     return Response('\n'.join(repos))
 
@@ -82,4 +82,4 @@ class TestGitSHAMiddleware(TestCase):
 
         app = TestApp(GitSHAMiddleware(bare_app, repo.path))
         resp = app.get('/')
-        self.assertEqual(resp.body, 'git-sha1.maitai-test-git-repo: %s' % sha1)
+        self.assertEqual(resp.body, b'git-sha1.maitai-test-git-repo: ' + sha1)

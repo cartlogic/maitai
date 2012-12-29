@@ -11,7 +11,7 @@ from .utils import FixedTestApp
 @wsgify
 def bare_app(req):
     s = '\n'.join(['%s: %s' % (k, v)
-                   for k, v in req.cookies.iteritems()])
+                   for k, v in req.cookies.items()])
     resp = Response(s)
 
     key = req.path_info_pop()
@@ -29,11 +29,11 @@ class TestRenameCookieMiddleware(TestCase):
         app = FixedTestApp(wrapped_app)
 
         resp = app.get('/first/blah')
-        self.assertEqual(resp.body, '')
+        self.assertEqual(resp.body, b'')
 
         resp = app.get('/', status=307)
         resp = resp.follow()
-        self.assertEqual(resp.body, 'second: blah')
+        self.assertEqual(resp.body, b'second: blah')
 
     def test_with_metadata(self):
         wrapped_app = RenameCookieMiddleware(bare_app, 'ewok', 'jedi',
@@ -41,7 +41,7 @@ class TestRenameCookieMiddleware(TestCase):
         app = FixedTestApp(wrapped_app)
 
         resp = app.get('/ewok/hello')
-        self.assertEqual(resp.body, '')
+        self.assertEqual(resp.body, b'')
         headers = resp.headers.getall('Set-Cookie')
         self.assertEqual(len(headers), 1)
         self.assertNotIn('Secure;', headers[0])
@@ -57,4 +57,4 @@ class TestRenameCookieMiddleware(TestCase):
                 self.assertIn('ewok', hdr)
 
         resp = resp.follow()
-        self.assertEqual(resp.body, 'jedi: hello')
+        self.assertEqual(resp.body, b'jedi: hello')
