@@ -21,11 +21,6 @@ setup(name="maitai",
       author_email='scott@cartlogic.com',
       install_requires=[
           'webob',
-          # These are for tests.
-          'coverage',
-          'nose>=1.1',
-          'nose-cover3',
-          'webtest',
       ],
       license='MIT',
       packages=['maitai'],
